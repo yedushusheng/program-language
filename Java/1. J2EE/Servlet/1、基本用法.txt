@@ -1,0 +1,32 @@
+1、什么是Servlet？
+Servlet 本身不能独立运行，需要在一个web应用中运行的，而一个web应用是部署在tomcat中的 
+所以开发一个servlet需要如下几个步骤 
+（1）创建web应用项目 
+（2）编写servlet代码 
+（3）部署到tomcat中 
+
+2、基本步骤
+（1）创建工程
+a.File->New->Other->Java->Java Project 
+这种方式需要我们手动生成各类配置文件
+b.File->New->Other-Web->Dynamic Web Project
+这是eclipse ee创建项目的方式，它会把各种tomcat,相关配置文件的生成都自动做掉了。 而这些细节，恰恰就是你需要学习和掌握的。 所以对于初学者不建议使用这种方式。
+（2）导入servlet-api.jar包
+右键点击项目 -> properties -> Java Build Path ->Libraries -> Add External JARs
+（3）编写 HelloServlet
+在Eclipse中创建一个普通类的方式：菜单->File->New->Class，HelloServlet继承了 HttpServlet，并且提供了一个doGet方法
+（4）编写web.xml
+先在j2ee下创建目录web，接着再创建目录web/WEB-INF，然后在WEB-INF目录中创建 web.xml
+
+web.xml提供路径与servlet的映射关系，把/hello这个路径，映射到 HelloServlet这个类上
+<servlet> 标签下的 <servlet-name>与 <servlet-mapping> 标签下的 <servlet-name> 必须一样
+<servlet-name>与<servlet-class>可以不一样，但是为了便于理解与维护，一般都会写的一样。
+（5）配置tomcat的server.xml 
+打开tomcat/conf/sever.xml
+在 <Host name="localhost" 下面加一句
+<Context path="/" docBase="e:\\project\\j2ee\\web" debug="0" reloadable="false" />
+path="/" 就表示直接通过 http://127.0.0.1/hello 就可以访问网页了。
+如果设置为
+<Context path="/j2ee" docBase="e:\\project\\j2ee\\web" debug="0" reloadable="false" />
+那么表示需要通过 http://127.0.0.1/j2ee/hello才能访问呢
+
